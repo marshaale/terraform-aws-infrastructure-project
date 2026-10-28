@@ -102,3 +102,20 @@ resource "aws_vpc_security_group_ingress_rule" "ssh" {
   from_port = 22
   to_port = 22
 }
+
+resource "aws_s3_bucket" "s3bucket" {
+  bucket = var.bucket_name
+  tags = {
+    Name = "amazon_s3_bucket"
+    Environment = "production"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "s3bucket" {
+  bucket = aws_s3_bucket.s3bucket.id
+  
+  block_public_acls = true
+  ignore_public_acls = true
+  block_public_policy = true
+  restrict_public_buckets = true
+}
