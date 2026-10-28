@@ -148,7 +148,7 @@ resource "aws_instance" "server2" {
 
 resource "aws_lb" "aplb" {
   load_balancer_type = "application"
-  ip_address_type = "IPv4"
+  ip_address_type = "ipv4"
   internal = false
   security_groups = [aws_security_group.sg.id]
   subnets = [aws_subnet.pubs1.id,aws_subnet.pubs2.id]
@@ -161,9 +161,9 @@ resource "aws_lb" "aplb" {
 resource "aws_lb_target_group" "aplbtg" {
   port        = 80
   protocol    = "HTTP"
-  target_type = "instances"
+  target_type = "instance"
   vpc_id      = aws_vpc.amz_vpc.id
-  ip_address_type = "IPv4"
+  ip_address_type = "ipv4"
   protocol_version = "HTTP1"
   tags = {
     Name = "amazon application load balancer target group"
