@@ -60,3 +60,45 @@ resource "aws_route_table_association" "rtapubs2" {
   subnet_id      = aws_subnet.pubs2.id
   route_table_id = aws_route_table.pubrt.id
 }
+
+resource "aws_security_group" "sg" {
+  name_prefix = "azm-sg-"
+  description = "Allows incoming http, https and ssh traffic"
+  vpc_id = aws_vpc.amz_vpc.id
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "amazon_security_group"
+    Environment = "production"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "http" {
+  security_group_id = aws_security_group.sg.id
+  cidr_ipv4 = "0.0.0.0/0"
+  ip_protocol = "tcp"
+  from_port = 80
+  to_port = 80
+}
+
+resource "aws_vpc_security_group_ingress_rule" "https" {
+  security_group_id = aws_security_group.sg.id
+  cidr_ipv4 = "0.0.0.0/0"
+  ip_protocol = "tcp"
+  from_port = 443
+  to_port = 443
+}
+
+resource "aws_vpc_security_group_ingress_rule" "ssh" {
+  security_group_id = aws_security_group.sg.id
+  cidr_ipv4 = "0.0.0.0/0"
+  ip_protocol = "tcp"
+  from_port = 22
+  to_port = 22
+}
