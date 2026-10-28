@@ -126,7 +126,7 @@ resource "aws_instance" "server1" {
   instance_type = "t3.micro"
   subnet_id = aws_subnet.pubs1.id
   vpc_security_group_ids = [aws_security_group.sg.id]
-  user_data = base64encode(file("script.sh"))
+  user_data_base64 = base64encode(file("script.sh"))
   tags = {
     Name = "server 1"
     Environment = "production"
@@ -139,7 +139,7 @@ resource "aws_instance" "server2" {
   instance_type = "t3.micro"
   subnet_id = aws_subnet.pubs2.id
   vpc_security_group_ids = [aws_security_group.sg.id]
-  user_data = base64encode(file("script.sh"))
+  user_data_base64 = base64encode(file("script.sh"))
   tags = {
     Name = "server 2"
     Environment = "production"
