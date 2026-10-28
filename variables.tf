@@ -8,3 +8,8 @@ variable "bucket_name" {
   type = string
   description = "2026 terraform session abhishek_veeramalla and cloud champ"
 }
+
+variable "ssh_key_name" {
+  default = "asia-specific-mdev-linux"
+  type = string
+}
