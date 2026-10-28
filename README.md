@@ -1,3 +1,7 @@
+# Preview
+
+<img src="./docs/Screenshot%20from%202026-10-28%2015-08-07.png" height="40%"/>
+
 # AWS Infrastructure with Terraform
 
 Provision AWS infrastructure using **Terraform (Infrastructure as
@@ -13,22 +17,22 @@ a load balancer, and use Amazon S3 for object storage.
 
 The target architecture includes:
 
--   **AWS VPC** --- an isolated virtual network for the project.
--   **Two public subnets** --- separate subnets in different
-    Availability Zones for improved availability.
--   **Application Load Balancer (ALB)** --- receives HTTP/HTTPS traffic
-    and distributes requests across the EC2 instances.
--   **EC2 Auto Scaling Group** --- maintains the desired number of
-    application instances and can replace unhealthy instances.
--   **Amazon S3** --- stores objects such as uploaded files or
-    application assets. The application instances access the bucket
-    through an appropriately scoped IAM role.
--   **Terraform** --- defines, provisions, updates, and destroys the
-    infrastructure.
+- **AWS VPC** --- an isolated virtual network for the project.
+- **Two public subnets** --- separate subnets in different
+  Availability Zones for improved availability.
+- **Application Load Balancer (ALB)** --- receives HTTP/HTTPS traffic
+  and distributes requests across the EC2 instances.
+- **EC2 Auto Scaling Group** --- maintains the desired number of
+  application instances and can replace unhealthy instances.
+- **Amazon S3** --- stores objects such as uploaded files or
+  application assets. The application instances access the bucket
+  through an appropriately scoped IAM role.
+- **Terraform** --- defines, provisions, updates, and destroys the
+  infrastructure.
 
 ### Architecture flow
 
-``` text
+```text
                          Internet
                             |
                      Internet Gateway
@@ -71,16 +75,16 @@ By completing this project, you will learn to:
 
 Install and configure:
 
--   An AWS account with permission to create the resources in this
-    project.
--   AWS CLI, configured with a suitable profile or environment
-    credentials.
--   Terraform CLI.
--   Git.
+- An AWS account with permission to create the resources in this
+  project.
+- AWS CLI, configured with a suitable profile or environment
+  credentials.
+- Terraform CLI.
+- Git.
 
 Check your installations:
 
-``` bash
+```bash
 terraform version
 aws --version
 aws sts get-caller-identity
@@ -92,7 +96,7 @@ secret keys, state files, or `.tfvars` files containing secrets to Git.
 
 ## Suggested project structure
 
-``` text
+```text
 terraform-aws-infrastructure/
 ├── README.md
 ├── .gitignore
