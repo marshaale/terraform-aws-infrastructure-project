@@ -119,3 +119,29 @@ resource "aws_s3_bucket_public_access_block" "s3bucket" {
   block_public_policy = true
   restrict_public_buckets = true
 }
+
+resource "aws_instance" "server1" {
+  ami = "ami-0c7632fb77f35db43"
+  key_name = var.ssh_key_name
+  instance_type = "t3.micro"
+  subnet_id = aws_subnet.pubs1.id
+  vpc_security_group_ids = [aws_security_group.sg.id]
+  user_data = base64encode(file("script.sh"))
+  tags = {
+    Name = "server 1"
+    Environment = "production"
+  }
+}
+
+resource "aws_instance" "server2" {
+  ami = "ami-0c7632fb77f35db43"
+  key_name = var.ssh_key_name
+  instance_type = "t3.micro"
+  subnet_id = aws_subnet.pubs2.id
+  vpc_security_group_ids = [aws_security_group.sg.id]
+  user_data = base64encode(file("script.sh"))
+  tags = {
+    Name = "server 2"
+    Environment = "production"
+  }
+}
