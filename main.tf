@@ -145,3 +145,54 @@ resource "aws_instance" "server2" {
     Environment = "production"
   }
 }
+
+resource "aws_lb" "aplb" {
+  load_balancer_type = "application"
+  ip_address_type = "IPv4"
+  internal = false
+  security_groups = [aws_security_group.sg.id]
+  subnets = [aws_subnet.pubs1.id,aws_subnet.pubs2.id]
+  tags = {
+    Name = "amazon application load balancer"
+    Environment = "production"
+  }
+}
+
+resource "aws_lb_target_group" "aplbtg" {
+  port        = 80
+  protocol    = "HTTP"
+  target_type = "instances"
+  vpc_id      = aws_vpc.amz_vpc.id
+  ip_address_type = "IPv4"
+  protocol_version = "HTTP1"
+  tags = {
+    Name = "amazon application load balancer target group"
+    Environment = "production"
+  }
+}
+
+resource "aws_lb_target_group_attachment" "tgs1" {
+  target_id = aws_instance.server1.id
+  target_group_arn = aws_lb_target_group.aplbtg.arn
+  port = 80
+}
+
+resource "aws_lb_target_group_attachment" "tgs2" {
+  target_id = aws_instance.server2.id
+  target_group_arn = aws_lb_target_group.aplbtg.arn
+  port = 80
+}
+
+resource "aws_lb_listener" "lbls" {
+  load_balancer_arn = aws_lb.aplb.arn
+  port = "80"
+  protocol = "HTTP"
+  default_action {
+    type = "forward"
+    target_group_arn = aws_lb_target_group.aplbtg.arn
+  }
+  tags = {
+    Name = "amazon application load balancer listener"
+    Environment = "production"
+  }
+}
